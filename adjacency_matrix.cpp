@@ -8,7 +8,6 @@
 #include <limits>
 #include <stack>
 #include <random>
-#include <algorithm>
 
 #define INF numeric_limits<int>::max()
 
@@ -98,7 +97,7 @@ void adjacency_matrix::fillMatrixWithDensity(double density) {
             v = gen() % V;
         } while (u == v || adjMatrix[u][v] != 0);
 
-        int weight = gen() % 10 + 1; // Random weight between 1 and 10
+        int weight = gen() % 20 + 1; // Random weight between 1 and 20
         adjMatrix[u][v] = weight;
     }
 }

@@ -7,6 +7,7 @@
 #include <queue>
 #include <limits>
 #include <stack>
+#include <random>
 
 #define INF numeric_limits<int>::max()
 
@@ -34,26 +35,34 @@ void adjacency_list::printGraph() {
 }
 
 void adjacency_list::dijkstra(int source, vector<int>& distances, vector<int>& parents) {
-    distances.resize(V, INF);   // Initialize all distances to infinity
-    parents.resize(V, -1);    // Initialize all parents to -1
-    distances[source] = 0;  // Distance from source to itself is 0
+    distances.resize(V, INF);
+    parents.resize(V, -1);
+    distances[source] = 0;
 
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-    pq.push(make_pair(0, source));
+    struct Node {
+        int vertex, distance;
+        Node(int v, int d) : vertex(v), distance(d) {}
+        bool operator>(const Node& other) const {
+            return distance > other.distance;
+        }
+    };
 
-    while (!pq.empty()) {   // While there are vertices to be processed
-        int u = pq.top().second;    // Get the vertex with the smallest distance
-        pq.pop();   // Remove the vertex from the queue
+    priority_queue<Node, vector<Node>, greater<Node>> minHeap;
+    minHeap.push(Node(source, 0));
 
-        for (auto& neighbor : adjList[u]) { // Check every neighbor of u for the shortest path
-            int v = neighbor.first;     // Get the neighbor's index
-            int weight = neighbor.second;       // Get the weight of the edge
-            int dist_v = distances[u] + weight;     // Calculate the distance from the source to v through u
+    while (!minHeap.empty()) {
+        int u = minHeap.top().vertex;
+        minHeap.pop();
+
+        for (const auto& neighbor : adjList[u]) {
+            int v = neighbor.first;
+            int weight = neighbor.second;
+            int dist_v = distances[u] + weight;
 
             if (dist_v < distances[v]) {
                 distances[v] = dist_v;
                 parents[v] = u;
-                pq.push(make_pair(dist_v, v));
+                minHeap.push(Node(v, dist_v));
             }
         }
     }
@@ -85,4 +94,33 @@ void adjacency_list::printShortestPath(int source, int dest, const vector<int>& 
         path.pop();
     }
     cout << endl;
+}
+
+bool adjacency_list::hasEdge(int u, int v) {
+    for (const auto& neighbor : adjList[u]) {
+        if (neighbor.first == v) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void adjacency_list::fillListWithDensity(double density) {
+    int maxEdges = V * (V - 1);
+    int numEdges = (int)(density * maxEdges);
+    random_device rd;
+    mt19937 gen(rd());
+
+    for (int i = 0; i < numEdges; i++) {
+        int v = gen() % V;
+        int u = gen() % V;
+        int weight = gen() % 20 + 1;
+
+        if(v == u || hasEdge(u, v)){
+            i--;
+        }
+        else{
+            addEdge(u, v, weight);
+        }
+    }
 }

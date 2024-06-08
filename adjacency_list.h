@@ -23,6 +23,8 @@ public:
     void printGraph();
     void dijkstra(int source, vector<int>& distances, vector<int>& parents);
     void printShortestPath(int source, int dest, const vector<int>& parents);
+    void fillListWithDensity(double density);
+    bool hasEdge(int u, int v);
 };
 
 
