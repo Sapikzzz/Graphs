@@ -9,22 +9,19 @@
 #include <list>
 #include <utility>
 
-using namespace std;
-
 class adjacency_list {
 private:
     int V; // Number of vertices
-    vector<list<pair<int, int>>> adjList; // Adjacency List
+    std::vector<std::list<std::pair<int, int>>> adjList; // Adjacency List
 
 public:
     adjacency_list(int V); // Constructor
     void addEdge(int u, int v, int weight);
-    list<pair<int, int>> getAdjacentVertices(int v);
     void printGraph();
-    void dijkstra(int source, vector<int>& distances, vector<int>& parents);
-    void printShortestPath(int source, int dest, const vector<int>& parents);
-    void fillListWithDensity(double density);
-    bool hasEdge(int u, int v);
+    void dijkstra(int source, std::vector<int>& distances, std::vector<int>& parents);
+    void printShortestPath(int source, int dest, const std::vector<int>& parents);
+    void fillListWithDensity(double density,int maxWeight);
+    bool edgeExists(int u, int v);
 };
 
 

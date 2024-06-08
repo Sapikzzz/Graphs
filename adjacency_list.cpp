@@ -8,6 +8,7 @@
 #include <limits>
 #include <stack>
 #include <random>
+#include <set>
 
 #define INF numeric_limits<int>::max()
 
@@ -17,25 +18,21 @@ adjacency_list::adjacency_list(int V) {
 }
 
 void adjacency_list::addEdge(int u, int v, int weight) {
-    adjList[u].push_back(make_pair(v, weight));
-}
-
-list<pair<int, int>> adjacency_list::getAdjacentVertices(int v) {
-    return adjList[v];
+    adjList[u].push_back(std::make_pair(v, weight));
 }
 
 void adjacency_list::printGraph() {
     for (int i = 0; i < V; i++) {
-        cout << i << " -> ";
+        std::cout << i << " -> ";
         for (auto it = adjList[i].begin(); it != adjList[i].end(); it++) {
-            cout << it->first << "(" << it->second << ") ";
+            std::cout << it->first << "(" << it->second << ") ";
         }
-        cout << endl;
+        std::cout << std::endl;
     }
 }
 
-void adjacency_list::dijkstra(int source, vector<int>& distances, vector<int>& parents) {
-    distances.resize(V, INF);
+void adjacency_list::dijkstra(int source, std::vector<int>& distances, std::vector<int>& parents) {
+    distances.resize(V, std::INF);
     parents.resize(V, -1);
     distances[source] = 0;
 
@@ -47,7 +44,7 @@ void adjacency_list::dijkstra(int source, vector<int>& distances, vector<int>& p
         }
     };
 
-    priority_queue<Node, vector<Node>, greater<Node>> minHeap;
+    std::priority_queue<Node, std::vector<Node>, std::greater<Node>> minHeap;
     minHeap.push(Node(source, 0));
 
     while (!minHeap.empty()) {
@@ -68,18 +65,18 @@ void adjacency_list::dijkstra(int source, vector<int>& distances, vector<int>& p
     }
 }
 
-void adjacency_list::printShortestPath(int source, int dest, const vector<int>& parents) {
+void adjacency_list::printShortestPath(int source, int dest, const std::vector<int>& parents) {
     if (dest == source) {
-        cout << source << " ";
+        std::cout << source << " ";
         return;
     }
 
     if (parents[dest] == -1) {
-        cout << "No path from " << source << " to " << dest << endl;
+        std::cout << "No path from " << source << " to " << dest << std::endl;
         return;
     }
 
-    stack<int> path;
+    std::stack<int> path;
     int vertex = dest;
     path.push(vertex);
 
@@ -88,39 +85,34 @@ void adjacency_list::printShortestPath(int source, int dest, const vector<int>& 
         path.push(vertex);
     }
 
-    cout << "Shortest path from " << source << " to " << dest << ": ";
+    std::cout << "Shortest path from " << source << " to " << dest << ": ";
     while (!path.empty()) {
-        cout << path.top() << " ";
+        std::cout << path.top() << " ";
         path.pop();
     }
-    cout << endl;
+    std::cout << std::endl;
 }
 
-bool adjacency_list::hasEdge(int u, int v) {
-    for (const auto& neighbor : adjList[u]) {
-        if (neighbor.first == v) {
-            return true;
-        }
-    }
-    return false;
-}
+void adjacency_list::fillListWithDensity(double density, int maxWeight) {
+    int maxEdges = V * (V - 1); // Max edges for directed graph
+    int targetEdges = static_cast<int>(density * maxEdges);
 
-void adjacency_list::fillListWithDensity(double density) {
-    int maxEdges = V * (V - 1);
-    int numEdges = (int)(density * maxEdges);
-    random_device rd;
-    mt19937 gen(rd());
+    srand(time(0)); // Seed for random number generation
 
-    for (int i = 0; i < numEdges; i++) {
-        int v = gen() % V;
-        int u = gen() % V;
-        int weight = gen() % 20 + 1;
+    int currentEdges = 0;
+    std::set<std::pair<int, int>> existingEdges;
 
-        if(v == u){
-            i--;
-        }
-        else{
-            addEdge(u, v, weight);
+    while (currentEdges < targetEdges) {
+        int u = rand() % V;
+        int v = rand() % V;
+        if (u != v) { // Avoid self-loops
+            std::pair<int, int> edge = std::make_pair(u, v); // Create a pair for directed edge
+            if (existingEdges.find(edge) == existingEdges.end()) {
+                int weight = rand() % maxWeight + 1; // Random weight between 1 and maxWeight
+                addEdge(u, v, weight);
+                existingEdges.insert(edge);
+                currentEdges++;
+            }
         }
     }
 }
