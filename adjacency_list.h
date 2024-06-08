@@ -21,6 +21,8 @@ public:
     void addEdge(int u, int v, int weight);
     list<pair<int, int>> getAdjacentVertices(int v);
     void printGraph();
+    void dijkstra(int source, vector<int>& distances, vector<int>& parents);
+    void printShortestPath(int source, int dest, const vector<int>& parents);
 };
 
 
