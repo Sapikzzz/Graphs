@@ -32,7 +32,7 @@ int main() {
 //
 //    graph.printShortestPath(3, 2, parents);
 
-    adjacency_matrix graph2(5);
+    adjacency_matrix graph2(70);
 
     graph2.fillMatrixWithDensity(0.5);
 
