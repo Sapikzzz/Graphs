@@ -1,0 +1,11 @@
+# ninja log v5
+5	253	7395108109395791	CMakeFiles/Graphs.dir/main.cpp.obj	79a51e2cca2023c1
+263	339	7395108357130256	Graphs.exe	52114edfb33a31d4
+3	263	7395108356401929	CMakeFiles/Graphs.dir/adjacency_list.cpp.obj	896b927f15b76f39
+12	61	7395122443329752	CMakeFiles/Graphs.dir/adjacency_matrix.cpp.obj	f00503954533b82f
+4	299	7395122445725999	CMakeFiles/Graphs.dir/main.cpp.obj	79a51e2cca2023c1
+8	367	7395122446407917	CMakeFiles/Graphs.dir/adjacency_list.cpp.obj	896b927f15b76f39
+367	449	7395122447185645	Graphs.exe	d5b1fc84a2f238fd
+3	292	7395127307866832	CMakeFiles/Graphs.dir/main.cpp.obj	79a51e2cca2023c1
+7	362	7395127308562908	CMakeFiles/Graphs.dir/adjacency_matrix.cpp.obj	f00503954533b82f
+362	459	7395127309512153	Graphs.exe	d5b1fc84a2f238fd
