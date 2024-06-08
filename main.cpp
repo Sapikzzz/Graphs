@@ -30,16 +30,25 @@ int main() {
 
     graph.printShortestPath(3, 2, parents);
 
-//    graph2.addEdge(0, 1, 1);
-//    graph2.addEdge(0, 2, 2);
-//    graph2.addEdge(1, 2, 3);
-//    graph2.addEdge(1, 3, 4);
-//    graph2.addEdge(2, 3, 5);
-//    graph2.addEdge(3, 4, 6);
-//    graph2.addEdge(4, 0, 7);
-//    graph2.addEdge(4, 1, 8);
-//    graph2.addEdge(5, 2, 9);
-//
-//    graph2.printGraph();
+    graph2.addEdge(0, 1, 1);
+    graph2.addEdge(0, 2, 2);
+    graph2.addEdge(1, 2, 3);
+    graph2.addEdge(1, 3, 4);
+    graph2.addEdge(2, 3, 5);
+    graph2.addEdge(3, 4, 6);
+    graph2.addEdge(4, 0, 7);
+    graph2.addEdge(4, 1, 8);
+
+    graph2.printGraph();
+
+    vector<int> distances2;
+    vector<int> parents2;
+    graph2.dijkstra(3, distances2, parents2);
+
+    for (int i = 0; i < distances2.size(); i++) {
+        cout << "Distance from 3 to " << i << " is " << distances2[i] << endl;
+    }
+
+    graph2.printShortestPath(3, 2, parents2);
     return 0;
 }
