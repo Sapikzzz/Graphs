@@ -7,4 +7,5 @@ add_executable(Graphs
         main.cpp
         adjacency_list.cpp
         adjacency_matrix.cpp
-        adjacency_matrix.h)
+        adjacency_matrix.h
+)

@@ -21,6 +21,7 @@ public:
     void printGraph();
     void dijkstra(int source, vector<int>& distances, vector<int>& parents);
     void printShortestPath(int source, int dest, const vector<int>& parents);
+    void fillMatrixWithDensity(double density);
 };
 
 #endif //GRAPHS_ADJACENCY_MATRIX_H

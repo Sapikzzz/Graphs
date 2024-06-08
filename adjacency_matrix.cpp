@@ -7,6 +7,8 @@
 #include <queue>
 #include <limits>
 #include <stack>
+#include <random>
+#include <algorithm>
 
 #define INF numeric_limits<int>::max()
 
@@ -17,7 +19,12 @@ adjacency_matrix::adjacency_matrix(int V) {
 }
 
 void adjacency_matrix::addEdge(int u, int v, int weight) {
-    adjMatrix[u][v] = weight;
+    if (u != v) {
+        adjMatrix[u][v] = weight;
+    }
+    else {
+        cout << "Giving self weight" << endl;
+    }
 }
 
 int adjacency_matrix::getWeight(int u, int v) {
@@ -76,4 +83,22 @@ void adjacency_matrix::printShortestPath(int source, int dest, const vector<int>
         path.pop();
     }
     cout << endl;
+}
+
+void adjacency_matrix::fillMatrixWithDensity(double density) {
+    int maxEdges = V * (V - 1); // Formula for maximum number of edge in graph
+    int numEdges = (int)(density * maxEdges);
+    random_device rd;
+    mt19937 gen(rd());
+
+    for (int i = 0; i < numEdges; i++) {
+        int u, v;
+        do {
+            u = gen() % (V - 1);
+            v = gen() % (V - 1);
+        } while (u == v || adjMatrix[u][v] != 0);
+
+        int weight = gen() % 10 + 1; // Random weight between 1 and 10
+        adjMatrix[u][v] = weight;
+    }
 }
