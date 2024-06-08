@@ -10,7 +10,7 @@
 #define INF numeric_limits<int>::max()
 
 int main() {
-    int vertices = 4000;
+    int vertices = 10000;
     double density = 0.75;
     int source = 3;
 

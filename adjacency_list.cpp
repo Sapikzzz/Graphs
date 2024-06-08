@@ -116,7 +116,7 @@ void adjacency_list::fillListWithDensity(double density) {
         int u = gen() % V;
         int weight = gen() % 20 + 1;
 
-        if(v == u || hasEdge(u, v)){
+        if(v == u){
             i--;
         }
         else{
