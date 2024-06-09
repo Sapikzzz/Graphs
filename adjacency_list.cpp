@@ -6,8 +6,6 @@
 #include <iostream>
 #include <queue>
 #include <limits>
-#include <stack>
-#include <random>
 #include <set>
 #include <vector>
 #include <list>
@@ -62,39 +60,11 @@ void adjacency_list::dijkstra(int source, std::vector<int>& distances, std::vect
     }
 }
 
-void adjacency_list::printShortestPath(int source, int dest, const std::vector<int>& parents) {
-    if (dest == source) {
-        std::cout << source << " ";
-        return;
-    }
-
-    if (parents[dest] == -1) {
-        std::cout << "No path from " << source << " to " << dest << std::endl;
-        return;
-    }
-
-    std::stack<int> path;
-    int vertex = dest;
-    path.push(vertex);
-
-    while (vertex != source) {
-        vertex = parents[vertex];
-        path.push(vertex);
-    }
-
-    std::cout << "Shortest path from " << source << " to " << dest << ": ";
-    while (!path.empty()) {
-        std::cout << path.top() << " ";
-        path.pop();
-    }
-    std::cout << std::endl;
-}
-
 void adjacency_list::fillListWithDensity(double density, int maxWeight) {
-    int maxEdges = V * (V - 1); // Max edges for directed graph
+    int maxEdges = V * (V - 1);
     int targetEdges = static_cast<int>(density * maxEdges);
 
-    srand(time(0)); // Seed for random number generation
+    srand(time(0));
 
     int currentEdges = 0;
     std::set<std::pair<int, int>> existingEdges;
@@ -103,9 +73,9 @@ void adjacency_list::fillListWithDensity(double density, int maxWeight) {
         int u = rand() % V;
         int v = rand() % V;
         if (u != v) { // Avoid self-loops
-            std::pair<int, int> edge = std::make_pair(u, v); // Create a pair for directed edge
+            std::pair<int, int> edge = std::make_pair(u, v);
             if (existingEdges.find(edge) == existingEdges.end()) {
-                int weight = rand() % maxWeight + 1; // Random weight between 1 and maxWeight
+                int weight = rand() % maxWeight + 1;
                 addEdge(u, v, weight);
                 existingEdges.insert(edge);
                 currentEdges++;

@@ -15,11 +15,10 @@ private:
     std::vector<std::list<std::pair<int, int>>> adjList;
 
 public:
-    adjacency_list(int V); // Constructor
+    adjacency_list(int V);
     void addEdge(int u, int v, int weight);
     void printGraph();
     void dijkstra(int source, std::vector<int>& distances, std::vector<int>& parents);
-    void printShortestPath(int source, int dest, const std::vector<int>& parents);
     void fillListWithDensity(double density,int maxWeight);
     std::vector<int> findShortestPath(int source, int dest);
     int shortestPath(int src, int dest);

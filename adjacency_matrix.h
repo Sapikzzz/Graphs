@@ -7,14 +7,13 @@
 
 #include <vector>
 
-
 class adjacency_matrix {
 private:
-    int V; // Number of vertices
-    std::vector<std::vector<int>> adjMatrix; // Adjacency Matrix
+    int V;
+    std::vector<std::vector<int>> adjMatrix;
 
 public:
-    adjacency_matrix(int V); // Constructor
+    adjacency_matrix(int V);
     void addEdge(int u, int v, int weight);
     int getWeight(int u, int v);
     void printGraph();

@@ -40,21 +40,21 @@ void adjacency_matrix::printGraph() {
 }
 
 void adjacency_matrix::dijkstra(int source, std::vector<int>& distances, std::vector<int>& parents) {
-    distances.resize(V, std::INF);   // Initialize all distances to infinity
-    parents.resize(V, -1);    // Initialize all parents to -1
-    distances[source] = 0;  // Distance from source to itself is 0
+    distances.resize(V, std::INF);
+    parents.resize(V, -1);
+    distances[source] = 0;
 
     std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> pq;
     pq.push(std::make_pair(0, source));
 
-    while (!pq.empty()) {   // While there are vertices to be processed
-        int u = pq.top().second;    // Get the vertex with the smallest distance
-        pq.pop();   // Remove the vertex from the queue
+    while (!pq.empty()) {
+        int u = pq.top().second;
+        pq.pop();
 
-        for (int v = 0; v < V; v++) { // Check every neighbor of u for the shortest path
-            if (adjMatrix[u][v] != 0) { // If there is an edge between u and v
-                int weight = adjMatrix[u][v];       // Get the weight of the edge
-                int dist_v = distances[u] + weight;     // Calculate the distance from the source to v through u
+        for (int v = 0; v < V; v++) {
+            if (adjMatrix[u][v] != 0) {
+                int weight = adjMatrix[u][v];
+                int dist_v = distances[u] + weight;
 
                 if (dist_v < distances[v]) {
                     distances[v] = dist_v;
@@ -67,7 +67,7 @@ void adjacency_matrix::dijkstra(int source, std::vector<int>& distances, std::ve
 }
 
 void adjacency_matrix::fillMatrixWithDensity(double density) {
-    int maxEdges = V * (V - 1); // Formula for maximum number of edge in graph
+    int maxEdges = V * (V - 1);
     int numEdges = (int)(density * maxEdges);
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -79,7 +79,7 @@ void adjacency_matrix::fillMatrixWithDensity(double density) {
             v = gen() % V;
         } while (u == v || adjMatrix[u][v] != 0);
 
-        int weight = gen() % 20 + 1; // Random weight between 1 and 20
+        int weight = gen() % 20 + 1;    // 1-20
         adjMatrix[u][v] = weight;
     }
 }
