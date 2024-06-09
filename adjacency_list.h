@@ -12,7 +12,7 @@
 class adjacency_list {
 private:
     int V; // Number of vertices
-    std::vector<std::list<std::pair<int, int>>> adjList; // Adjacency List
+    std::vector<std::list<std::pair<int, int>>> adjList;
 
 public:
     adjacency_list(int V); // Constructor
@@ -21,7 +21,6 @@ public:
     void dijkstra(int source, std::vector<int>& distances, std::vector<int>& parents);
     void printShortestPath(int source, int dest, const std::vector<int>& parents);
     void fillListWithDensity(double density,int maxWeight);
-    bool edgeExists(int u, int v);
     std::vector<int> findShortestPath(int source, int dest);
     int shortestPath(int src, int dest);
 };

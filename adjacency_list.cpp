@@ -41,20 +41,12 @@ void adjacency_list::dijkstra(int source, std::vector<int>& distances, std::vect
     parents.resize(V, -1);
     distances[source] = 0;
 
-    struct Node {
-        int vertex, distance;
-        Node(int v, int d) : vertex(v), distance(d) {}
-        bool operator>(const Node& other) const {
-            return distance > other.distance;
-        }
-    };
+    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> pq;
+    pq.push(std::make_pair(0, source));
 
-    std::priority_queue<Node, std::vector<Node>, std::greater<Node>> minHeap;
-    minHeap.push(Node(source, 0));
-
-    while (!minHeap.empty()) {
-        int u = minHeap.top().vertex;
-        minHeap.pop();
+    while (!pq.empty()) {
+        int u = pq.top().second;
+        pq.pop();
 
         for (const auto& neighbor : adjList[u]) {
             int v = neighbor.first;
@@ -64,7 +56,7 @@ void adjacency_list::dijkstra(int source, std::vector<int>& distances, std::vect
             if (dist_v < distances[v]) {
                 distances[v] = dist_v;
                 parents[v] = u;
-                minHeap.push(Node(v, dist_v));
+                pq.push(std::make_pair(dist_v, v));
             }
         }
     }
