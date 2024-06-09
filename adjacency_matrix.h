@@ -19,8 +19,8 @@ public:
     int getWeight(int u, int v);
     void printGraph();
     void dijkstra(int source, std::vector<int>& distances, std::vector<int>& parents);
-    void printShortestPath(int source, int dest, const std::vector<int>& parents);
     void fillMatrixWithDensity(double density);
+    int shortestPath(int src, int dest);
 };
 
 #endif //GRAPHS_ADJACENCY_MATRIX_H

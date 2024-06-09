@@ -66,24 +66,6 @@ void adjacency_matrix::dijkstra(int source, std::vector<int>& distances, std::ve
     }
 }
 
-void adjacency_matrix::printShortestPath(int source, int dest, const std::vector<int>& parents) {
-    std::stack<int> path;
-    int current = dest;
-
-    while (current != source) {
-        path.push(current);
-        current = parents[current];
-    }
-    path.push(source);
-
-    std::cout << "Shortest path from " << source << " to " << dest << " is: ";
-    while (!path.empty()) {
-        std::cout << path.top() << " ";
-        path.pop();
-    }
-    std::cout << std::endl;
-}
-
 void adjacency_matrix::fillMatrixWithDensity(double density) {
     int maxEdges = V * (V - 1); // Formula for maximum number of edge in graph
     int numEdges = (int)(density * maxEdges);
@@ -100,4 +82,33 @@ void adjacency_matrix::fillMatrixWithDensity(double density) {
         int weight = gen() % 20 + 1; // Random weight between 1 and 20
         adjMatrix[u][v] = weight;
     }
+}
+
+int adjacency_matrix::shortestPath(int src, int dest) {
+    std::vector<int> dist(V, INT_MAX);
+    dist[src] = 0;
+
+    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> pq;
+    pq.push(std::make_pair(0, src));
+
+    while (!pq.empty()) {
+        int u = pq.top().second;
+        pq.pop();
+
+        for (int v = 0; v < V; v++) {
+            if (adjMatrix[u][v] != 0) {
+                int alt = dist[u] + adjMatrix[u][v];
+                if (alt < dist[v]) {
+                    dist[v] = alt;
+                    pq.push(std::make_pair(dist[v], v));
+                }
+            }
+        }
+    }
+
+    if (dist[dest] == INT_MAX) {
+        return -1; // No path exists
+    }
+
+    return dist[dest];
 }

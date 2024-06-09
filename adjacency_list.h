@@ -22,6 +22,8 @@ public:
     void printShortestPath(int source, int dest, const std::vector<int>& parents);
     void fillListWithDensity(double density,int maxWeight);
     bool edgeExists(int u, int v);
+    std::vector<int> findShortestPath(int source, int dest);
+    int shortestPath(int src, int dest);
 };
 
 
